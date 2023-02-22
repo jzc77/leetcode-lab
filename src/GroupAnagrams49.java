@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/valid-anagram/
+// https://leetcode.com/problems/group-anagrams/
 
 /*
 Thought process:
@@ -15,7 +15,6 @@ Thought process:
 -Return list
  */
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,30 +30,32 @@ public class GroupAnagrams49 {
 
     public static List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> result = new ArrayList<List<String>>();
-        List<String> strList = new ArrayList<String>(); // Sublist of grouped anagrams
-        HashMap<String, Integer> hashMapSortedStrings = new HashMap<>();
+        HashMap<String, Integer> hashMapSortedStrings = new HashMap<>(); // e.g. {aet=0, ant=1}
         int index = 0;
 
         for (int i=0; i<strs.length; i++) {
             String sortedStr = sortString(strs[i]);
+
             if (!hashMapSortedStrings.containsKey(sortedStr)) {
                 hashMapSortedStrings.put(sortedStr, index);
+
+                List<String> strList = new ArrayList<String>(); // New sublist for each str not found in hashmap
+                strList.add(strs[i]);  // New sublist for each str not found in hashmap
+                result.add(strList);
+
                 index++;
-                strList.add(strs[i]);
-
-            } else {  // sorted string is in hashmap
+            } else {  // sorted string is in hashmap, need to find the appropriate sublist to add str to
                 int hashmapValue = hashMapSortedStrings.get(sortedStr);
-                strList.add(hashmapValue, strs[i]);
+                result.get(hashmapValue).add(strs[i]);
             }
-
         }
-
-        result.add(strList);
         return result;
     }
 
     public static void main(String[] args) {
-        String[] strs = {"eat","tea","tan","ate","nat","bat"};  // [["bat"],["nat","tan"],["ate","eat","tea"]]
+        //String[] strs = {"eat","tea","tan","ate","nat","bat"};  // [["bat"],["nat","tan"],["ate","eat","tea"]]
+        //String[] strs = {""};  // [[""]]
+        String[] strs = {"a"};  // [["a"]]
 
         GroupAnagrams49 groupAnagrams49 = new GroupAnagrams49();
         System.out.println(groupAnagrams49.groupAnagrams(strs));  // so far: [[ate, nat, tea, eat, tan, bat]]
