@@ -13,6 +13,9 @@ Thought process:
 -Return maxProfit
  */
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class BestTimeToBuyAndSellStock121 {
 
     public static int maxProfit(int[] prices) {
@@ -20,23 +23,35 @@ public class BestTimeToBuyAndSellStock121 {
         int right = 1;
         int maxProfit = 0;
 
-        for (int i=0; i<prices.length; i++) {
+        if (prices.length == 1) {
+            return maxProfit;
+        }
+
+        if (prices[right] == prices[left] && prices.length == 2) {
+            return maxProfit;
+        }
+
+
+        for (int i=0; i<(prices.length); i++) {
             if (prices[right] - prices[left] > maxProfit) {
                 maxProfit = prices[right] - prices[left];
-            }
-            if (prices[right] < prices[left]) {
-                left++;
-                right++;
             } else {
-                right++;
+                if (prices[right] < prices[left]) {
+                    left = right;
+                } else {
+                    right++;
+                }
             }
         }
         return maxProfit;
     }
 
     public static void main(String[] args) {
-        int[] input = {7,1,5,3,6,4}; // 5
-
+        //int[] input = {7,1,5,3,6,4}; // 5
+        //int[] input = {7,6,4,3,1}; // 0
+        //int[] input = {1,2}; // 1
+        //int[] input = {2,1,4}; // 3
+        int[] input = {3,3}; // 0
         System.out.println(maxProfit(input));
     }
 }
