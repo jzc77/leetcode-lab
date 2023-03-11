@@ -19,13 +19,18 @@ public class ValidParentheses20 {
         String openBrackets = "([{";
         String closedBrackets = ")]}";
 
+        if (s.length() == 1) {
+            return false;
+        }
+
         for (int i=0; i<s.length(); i++) {
             if(openBrackets.indexOf(s.charAt(i)) != -1) {  // open bracket is encountered
                 resultString += s.charAt(i);
+
             } else {  // closing bracket is encountered
                 int closeBracketIndex = closedBrackets.indexOf(s.charAt(i));
                 char correspondingOpenBracket = openBrackets.charAt(closeBracketIndex);
-                if (resultString.charAt(resultString.length()-1) == (correspondingOpenBracket)) {
+                if (resultString.length() !=0 && resultString.charAt(resultString.length()-1) == (correspondingOpenBracket)) {
                     resultString = resultString.substring(0, resultString.length()-1);
                 } else {
                     return false;
@@ -43,7 +48,9 @@ public class ValidParentheses20 {
     public static void main(String[] args) {
         //String s = "()";  // true
         //String s = "()[]{}";  // true
-        String s = "(]";  // false
+        //String s = "(]";  // false
+        //String s = "]"; // false
+        String s = "){"; // false
 
         ValidParentheses20 validParentheses20 = new ValidParentheses20();
         System.out.println(validParentheses20.isValid(s));
