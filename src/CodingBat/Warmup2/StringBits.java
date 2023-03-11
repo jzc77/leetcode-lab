@@ -7,7 +7,7 @@ stringBits("Hello") → "Hlo"
 stringBits("Hi") → "H"
 stringBits("Heeololeo") → "Hello"
  */
-public class stringBits {
+public class StringBits {
     public static String stringBits(String str) {
         String result = "";
         for (int i=0; i<str.length(); i++) {
