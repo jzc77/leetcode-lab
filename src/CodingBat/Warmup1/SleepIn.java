@@ -19,8 +19,6 @@ public class SleepIn {
     }
 
     public void main(String[] args) {
-        SleepIn sleepIn = new SleepIn();
-
         System.out.println(sleepIn(false, false)); // true
     }
 
