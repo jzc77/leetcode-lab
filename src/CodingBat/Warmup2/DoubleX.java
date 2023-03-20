@@ -11,15 +11,15 @@ doubleX("xxxxx") → true
 public class DoubleX {
 
     public static boolean doubleX(String input) {
-        for (int i=0; i<input.length()-1; i++) {
-            if (input.charAt(i) == 'x' && input.charAt(i+1) != 'x') {
-                return true;
-            }
+        int indexOfFirstXx = input.indexOf('x');
+
+        if ((indexOfFirstXx != -1) && (indexOfFirstXx != input.length()-1)) {  // an 'x' exists in the input string, so need to check the next character
+            return input.charAt(indexOfFirstXx + 1) == 'x';
         }
         return false;
     }
 
     public static void main(String[] args) {
-        System.out.println(doubleX("axaxax"));
+        System.out.println(doubleX("aaaax"));  // should be false
     }
 }
