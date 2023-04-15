@@ -21,7 +21,7 @@ public class SearchA2DMatrix74 {
 
         while (leftIndex <= rightIndex) {
             int middleIndex = (leftIndex + rightIndex) / 2;
-            int middleElement = matrix[middleIndex / numColumns][middleIndex % numColumns];
+            int middleElement = matrix[middleIndex / numColumns][middleIndex % numColumns];  // Notes below
 
             if (middleElement == target) {
                 return true;
@@ -41,3 +41,19 @@ public class SearchA2DMatrix74 {
         System.out.println(searchMatrix(matrix, target));  // (solved)
     }
 }
+
+/*
+Extra notes for the following line:
+int middleElement = matrix[middleIndex / numColumns][middleIndex % numColumns];
+
+To obtain the middle element of a 2D matrix, we need the matrix's row number and column number because an element in
+a 2D matrix is defined by: matrixName[row number][column number]
+
+To obtain the matrix's row number, we need to find the number of "full" rows the middle index can contain.
+"middleIndex / numColumns" will give an integer, which represents the number of "full" rows. The number of "full" rows
+will also mean the row number that the middle element is in.
+(When you divide two integers in Java, the remainder will be removed and the answer will just be an integer.)
+
+To obtain the matrix's column number, we need to find the remainder, which represents how far along the row the
+middle element is. The "middleIndex % numColumns" will do that.
+ */
