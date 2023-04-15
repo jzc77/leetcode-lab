@@ -27,9 +27,9 @@ public class SearchA2DMatrix74 {
                 return true;
             }
             if (middleElement < target) {
-                rightIndex = middleIndex + 1;
+                leftIndex = middleIndex + 1;
             } else {
-                leftIndex = middleIndex - 1;
+                rightIndex = middleIndex - 1;
             }
         }
         return false;
@@ -38,6 +38,6 @@ public class SearchA2DMatrix74 {
     public static void main(String[] args) {
         int[][] matrix = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
         int target = 3;
-        System.out.println(searchMatrix(matrix, target));
+        System.out.println(searchMatrix(matrix, target));  // (solved)
     }
 }
