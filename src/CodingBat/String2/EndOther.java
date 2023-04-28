@@ -11,7 +11,7 @@ endOther("AbC", "HiaBc") → true
 endOther("abc", "abXabc") → true
  */
 public class EndOther {
-    public static boolean endOther(String a, String b) {
+    public static boolean endOther_Solution1(String a, String b) {
         String aLower = a.toLowerCase();
         String bLower = b.toLowerCase();
 
@@ -21,9 +21,27 @@ public class EndOther {
         return false;
     }
 
+    public static boolean endOther_Solution2(String a, String b) {
+        String aLower = a.toLowerCase();
+        String bLower = b.toLowerCase();
+        int aLength = a.length();
+        int bLength = b.length();
+
+        if (aLength >= bLength && aLower.substring(aLength - bLength).equals(bLower)) {
+            return true;
+        } else if (bLength >= aLength && bLower.substring(bLength - aLength).equals(aLower)) {
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        String a = "Hiabc";
-        String b = "abc";
-        System.out.println(endOther(a, b));
+//        String a = "Hiabc";
+//        String b = "abc";  // true
+//        String a = "Hiabcx";
+//        String b = "bc";  // false
+        String a = "AbC";
+        String b = "HiaBc";  // true
+        System.out.println(endOther_Solution2(a, b));
     }
 }
