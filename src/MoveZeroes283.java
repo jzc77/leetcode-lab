@@ -6,14 +6,24 @@ import java.util.Queue;
 
 /*
 Thought process:
+(Approach 1)
 -Loop through each array element.
     -If it's not a 0, move it into a Queue
     -If it's a 0, skip it
 -Replace all the elements in nums with the elements in the Queue
 -Fill the rest of the nums length with zeroes
+
+(Approach 2)
+-Use left and right pointers. (Keep track of number of zeroes encountered (zeroCount)) --> not needed.
+-Left pointer will point to the position to update in the nums array
+-Right pointer will be the 'scout' and check the next element.
+    -If the element it's pointing to is zero, move right pointer to the right. Increment zeroCount.
+    -If the element it's pointing to is non-zero, update the left pointer with what the right pointer is pointing to
+     and move the left AND right pointer one element to the next element
+    -If right pointer finished checking the last element, replace left's remaining elements with zeroes.
  */
 public class MoveZeroes283 {
-    public static void moveZeroes(int[] nums) {
+    public static void moveZeroes_Approach1(int[] nums) {
         Queue<Integer> queueInts = new LinkedList<>();
 
         int nonZeroCount = 0;
@@ -37,8 +47,36 @@ public class MoveZeroes283 {
         System.out.println(Arrays.toString(nums));
     }
 
+    public static void moveZeroes_Approach2(int[] nums) {
+        int left = 0;
+        int right;
+        //int numCount = 0;
+
+        if (nums.length == 1) {
+            return;
+        }
+
+        for (right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) {
+                 // right++; // already incrementing right pointer in for-loop
+                // numCount++;
+            }
+            if (nums[right] != 0) {
+                nums[left] = nums[right];
+                // right++; // already incrementing right pointer in for-loop
+                left++;
+            }
+        }
+
+        for (int i = left; i < nums.length; i++) {  // originally, I had "i = numCounter", but it was not correct. Using "left" made more sense because it already points to the position to update
+            nums[i] = 0;
+        }
+        System.out.println(Arrays.toString(nums));
+    }
+
     public static void main(String[] args) {
         int[] nums = {0, 1, 0, 3, 12};  // 1, 3, 12, 0, 0
-        moveZeroes(nums);
+        //int[] nums = {0, 1};  // 1, 0
+        moveZeroes_Approach2(nums);
     }
 }
