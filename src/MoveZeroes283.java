@@ -14,13 +14,12 @@ Thought process:
 -Fill the rest of the nums length with zeroes
 
 (Approach 2)
--Use left and right pointers. (Keep track of number of zeroes encountered (zeroCount)) --> not needed.
+-Use left and right pointers.
 -Left pointer will point to the position to update in the nums array
 -Right pointer will be the 'scout' and check the next element.
-    -If the element it's pointing to is zero, move right pointer to the right. Increment zeroCount.
     -If the element it's pointing to is non-zero, update the left pointer with what the right pointer is pointing to
-     and move the left AND right pointer one element to the next element
-    -If right pointer finished checking the last element, replace left's remaining elements with zeroes.
+     and move the left pointer one element to the next element
+    -After the right pointer finished checking the last element, replace left's remaining elements with zeroes.
  */
 public class MoveZeroes283 {
     public static void moveZeroes_Approach1(int[] nums) {
@@ -57,10 +56,10 @@ public class MoveZeroes283 {
         }
 
         for (right = 0; right < nums.length; right++) {
-            if (nums[right] == 0) {
-                 // right++; // already incrementing right pointer in for-loop
-                // numCount++;
-            }
+            //if (nums[right] == 0) {
+            // right++; // already incrementing right pointer in for-loop
+            // numCount++;  // not needed
+            //}
             if (nums[right] != 0) {
                 nums[left] = nums[right];
                 // right++; // already incrementing right pointer in for-loop
