@@ -7,9 +7,17 @@ Thought process:
 (Approach 1 - Brute force)
 -Go through the array and count the number of 0's, 1's, and 2's
 -Go through the array again and use the counts to fill up the original array with the correct number of 0's, 1's, and 2's.
+
+(Approach 2 - Using 3 pointers)
+ -Left and middle points to first element, and right points to last element
+ -While middle is less than right pointer, check what middle is pointing to.
+    -If middle points to 0, replace left with middle element. Move left pointer to next element.
+    -If middle points to 1, move middle pointer to next element
+     (Because if a 0 is encountered, the 1 will be replaced with a 0. If no 0's are encountered, then 1 is already the next lowest.)
+    -If middle points to 2, replace right with middle element. Move right pointer to the left element. Check what middle is pointing to.
  */
 public class SortColors75 {
-    public static void sortColors(int[] nums) {
+    public static void sortColors_Approach1(int[] nums) {
         int num0 = 0;
         int num1 = 0;
         int num2 = 0;  // never used
@@ -40,8 +48,30 @@ public class SortColors75 {
         //System.out.println(Arrays.toString(nums));
     }
 
+    public static void sortColors_Approach2(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int middle = 0;
+
+        while (middle <= right) {
+            if (nums[middle] == 0) {
+                nums[left] = nums[middle];
+                left++;
+                middle++;
+            }
+            if (nums[middle] == 1) {
+                middle++;
+            }
+            if (nums[middle] == 2) {
+                nums[right] = nums[middle];
+                right--;
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+    }
+
     public static void main(String[] args) {
         int[] nums = {2, 0, 2, 1, 1, 0};  // 0, 0, 1, 1, 2, 2
-        sortColors(nums);
+        sortColors_Approach2(nums);
     }
 }
