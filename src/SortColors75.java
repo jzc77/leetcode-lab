@@ -12,9 +12,9 @@ Thought process:
  -Left and middle points to first element, and right points to last element
  -While middle is less than right pointer, check what middle is pointing to.
     -If middle points to 0, replace left with middle element. Move left pointer to next element.
-    -If middle points to 1, move middle pointer to next element
+    -Else if middle points to 1, move middle pointer to next element
      (Because if a 0 is encountered, the 1 will be replaced with a 0. If no 0's are encountered, then 1 is already the next lowest.)
-    -If middle points to 2, replace right with middle element. Move right pointer to the left element. Check what middle is pointing to.
+    -Else: middle points to 2, replace right with middle element. Move right pointer to the left element. Check what middle is pointing to.
  */
 public class SortColors75 {
     public static void sortColors_Approach1(int[] nums) {
@@ -55,19 +55,26 @@ public class SortColors75 {
 
         while (middle <= right) {
             if (nums[middle] == 0) {
+                //nums[left] = nums[middle];
+                int temp = nums[left];
                 nums[left] = nums[middle];
+                nums[middle] = temp;
+
                 left++;
                 middle++;
             }
-            if (nums[middle] == 1) {
+            else if (nums[middle] == 1) {
                 middle++;
             }
-            if (nums[middle] == 2) {
+            else {
+                //nums[right] = nums[middle];
+                int temp = nums[right];
                 nums[right] = nums[middle];
+                nums[middle] = temp;
                 right--;
             }
         }
-        System.out.println(Arrays.toString(nums));
+        //System.out.println(Arrays.toString(nums));
     }
 
     public static void main(String[] args) {
