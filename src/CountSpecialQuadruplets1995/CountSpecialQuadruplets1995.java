@@ -16,7 +16,7 @@ public class CountSpecialQuadruplets1995 {
 
     public static int countQuadruplets(int[] nums) {
         int counter = 0;
-        Arrays.sort(nums);
+        //Arrays.sort(nums); (Not needed, doesn't work if this is here)
         for (int i = 0; i < nums.length - 3; i++) {
             for (int j = i + 1; j < nums.length - 2; j++) {
                 for (int k = j + 1; k < nums.length - 1; k++) {
