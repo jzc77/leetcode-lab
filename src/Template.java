@@ -13,8 +13,6 @@ public class Template {
     }
 
     public static void main(String[] args) {
-        Template template = new Template();
-        template.helloWorld();
-
+        System.out.println(helloWorld());
     }
 }
