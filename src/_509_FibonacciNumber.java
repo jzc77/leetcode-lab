@@ -2,7 +2,7 @@
 
 /*
 Thought process:
--Need base case for 1 and 2
+-Need base case for 0 and 1
  */
 
 public class _509_FibonacciNumber {
