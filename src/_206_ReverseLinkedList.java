@@ -25,10 +25,10 @@ public class _206_ReverseLinkedList {
         ListNode prev = null;
 
         while(head != null) {
-            ListNode nextNode = head.next;
-            head.next = prev;
-            prev = head;
-            head = nextNode;
+            ListNode nextNode = head.next;  // nextNode is a temporary variable
+            head.next = prev;  // Move first node's pointer to prev, which is null; "For head's next, point to null"
+            prev = head;  // Move prev pointer to head
+            head = nextNode;  // Move head's pointer to third node
         }
 
         return prev;  // now points to the head of the reversed linked list
