@@ -2,6 +2,7 @@ package AdventOfCode2023.Day1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Day1 {
@@ -39,6 +40,10 @@ public class Day1 {
         }
 
         return sumResult;  // 55971 (correct!)
+    }
+
+    public static void part2() throws FileNotFoundException {
+        // Too difficult
     }
 
     public static void main(String[] args) throws FileNotFoundException {
