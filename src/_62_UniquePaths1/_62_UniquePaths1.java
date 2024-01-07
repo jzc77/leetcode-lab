@@ -1,4 +1,5 @@
-package _62_UniquePaths1;// https://leetcode.com/problems/unique-paths/
+package _62_UniquePaths1;
+// https://leetcode.com/problems/unique-paths/
 
 /*
 Notes:
