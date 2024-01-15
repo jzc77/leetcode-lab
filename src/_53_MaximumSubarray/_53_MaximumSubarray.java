@@ -1,0 +1,60 @@
+package _53_MaximumSubarray;// https://leetcode.com/problems/maximum-subarray
+
+/*
+My initial thoughts:
+- This looks like it could be solved by "sliding the (array) window"
+- Start with the first element and remember the sum so far
+- Expand the window to include the second element. Calculate the sum. Check if the sum is greater than the remembered sum.
+    - If it's greater, replace the sum with the new sum.
+    - If it's less, expand the window once again to the right.
+- At the end, return the maxSumEncountered.
+ */
+
+/*
+Brute force notes:
+- Caution: Don't add the indices, but rather add the contents of the index!
+    - E.g. INCORRECT:   sumAccumulator += rightIndex
+           CORRECT:     sumAccumulator += nums[rightIndex]
+- Try not to make complicated for-loops
+    - E.g. Notice that both for-loops just loop to the end of the nums list. There was no need to adjust for
+           out-of-bounds with a "nums.length - 1" or "nums.length - 2" in this question.
+- (See accompanying diagram: brute_force_windows.jpg)
+    - In brute force, we make all possible sub-arrays (all possible windows). We make all the sub-arrays in the diagram.
+      After the first outer loop finishes, it creates similar sub-arrays starting from the second element.
+    - The outer for-loop keeps track of the starting index of the sub-arrays.
+    - The inner for-loop creates the sub-arrays, adds the elements, and compares the sum with the highest sum so far.
+- Line 46 is more succinct than an if-statement:
+    - More succinct and preferred:
+        highestSum = Math.max(highestSum, sumAccumulator)
+    - Less succinct and should be avoided
+        if (sumAccumulator > highestSum) {
+            highestSum = sumAccumulator;
+        }
+ */
+
+
+public class _53_MaximumSubarray {
+
+    public int maxSubArray_bruteForce(int[] nums) {
+        int highestSum = Integer.MIN_VALUE;
+
+        for (int leftIndex = 0; leftIndex < nums.length; leftIndex++) {
+            int sumAccumulator = 0;
+
+            for (int rightIndex = leftIndex; rightIndex < nums.length; rightIndex++) {  // keep adding next element at each loop, which becomes a new window
+                sumAccumulator += nums[rightIndex];
+                highestSum = Math.max(highestSum, sumAccumulator);  // better, more succinct than 'if' statement
+            }
+        }
+        return highestSum;
+    }
+
+    public static void main(String[] args) {
+        _53_MaximumSubarray _53_MaximumSubarray = new _53_MaximumSubarray();
+
+        //int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+        //int[] nums = {5,4,-1,7,8};
+        int[] nums = {-1};
+        System.out.println(_53_MaximumSubarray.maxSubArray_bruteForce(nums));
+    }
+}
