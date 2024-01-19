@@ -1,4 +1,5 @@
-package _53_MaximumSubarray;// https://leetcode.com/problems/maximum-subarray
+package _53_MaximumSubarray;
+// https://leetcode.com/problems/maximum-subarray
 
 /*
 My initial thoughts:
@@ -34,7 +35,8 @@ Brute force notes:
 
 
 public class _53_MaximumSubarray {
-
+    // Runtime complexity: O(n^2); nested for-loops
+    // Space complexity: O(1); highestSum is a constant and the only variable being stored in memory
     public int maxSubArray_bruteForce(int[] nums) {
         int highestSum = Integer.MIN_VALUE;
 
@@ -49,12 +51,42 @@ public class _53_MaximumSubarray {
         return highestSum;
     }
 
+    // Identify where repeated work is happening
+    public int maxSubArray_optimized(int[] nums) {
+        int leftPointer = 0;
+        int rightPointer = 0;
+        int highestSum = Integer.MIN_VALUE;
+        int subArraySum = 0;
+
+        int leftOfWindow = nums[leftPointer];
+        int rightOfWindow = nums[rightPointer];
+
+        subArraySum += leftOfWindow;
+
+        while (rightPointer < nums.length) {  // If not at the end of the array, then keep looping
+            if (subArraySum <= 0) {  // Chop off whole left side and start fresh at the next element.
+                leftPointer++;
+                rightPointer++;
+            }
+            subArraySum = nums[leftPointer];
+
+            if (subArraySum > 0) {
+                subArraySum += rightOfWindow;
+                highestSum = Math.max(highestSum, subArraySum);
+                rightPointer++;
+            }
+        }
+        return highestSum;
+    }
+
     public static void main(String[] args) {
         _53_MaximumSubarray _53_MaximumSubarray = new _53_MaximumSubarray();
 
-        //int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
-        //int[] nums = {5,4,-1,7,8};
-        int[] nums = {-1};
-        System.out.println(_53_MaximumSubarray.maxSubArray_bruteForce(nums));
+        int[] nums = {-2,1,-3,4,-1,2,1,-5,4}; // Correct ans is: 6
+        //int[] nums = {5,4,-1,7,8};          // Correct ans is: 23
+        //int[] nums = {-1};                  // Correct ans is: -1
+
+        //System.out.println(_53_MaximumSubarray.maxSubArray_bruteForce(nums));
+        System.out.println(_53_MaximumSubarray.maxSubArray_optimized(nums));
     }
 }
