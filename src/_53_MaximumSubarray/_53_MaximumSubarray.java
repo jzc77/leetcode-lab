@@ -34,6 +34,8 @@ Brute force notes:
  */
 
 
+import java.util.Arrays;
+
 public class _53_MaximumSubarray {
     // Runtime complexity: O(n^2); nested for-loops
     // Space complexity: O(1); highestSum is a constant and the only variable being stored in memory
@@ -53,28 +55,30 @@ public class _53_MaximumSubarray {
 
     // Identify where repeated work is happening
     public int maxSubArray_optimized(int[] nums) {
-        int leftPointer = 0;
-        int rightPointer = 0;
+        int leftIndex = 0;
+        int rightIndex = 0;
         int highestSum = Integer.MIN_VALUE;
         int subArraySum = 0;
 
-        int leftOfWindow = nums[leftPointer];
-        int rightOfWindow = nums[rightPointer];
+        int leftOfWindow = nums[leftIndex];
+        int rightOfWindow = nums[rightIndex];
 
         subArraySum += leftOfWindow;
 
-        while (rightPointer < nums.length) {  // If not at the end of the array, then keep looping
+        while (rightIndex < nums.length) {  // If not at the end of the array, then keep looping
+            System.out.println("slice of current array:");
+            System.out.println(Arrays.toString(Arrays.stream(nums, leftIndex, rightIndex + 1).toArray()));
             if (subArraySum <= 0) {  // Chop off whole left side and start fresh at the next element.
-                leftPointer++;
-                rightPointer++;
-            }
-            subArraySum = nums[leftPointer];
+                leftIndex += (rightIndex - leftIndex) + 1;
+                rightIndex++;
 
-            if (subArraySum > 0) {
+                subArraySum = nums[leftIndex];
+                // should subtract from each value when you're moving left pointer pr set sum to 0
+            } else if (subArraySum > 0) {
+                rightIndex++;
                 subArraySum += rightOfWindow;
-                highestSum = Math.max(highestSum, subArraySum);
-                rightPointer++;
             }
+            highestSum = Math.max(highestSum, subArraySum);
         }
         return highestSum;
     }
