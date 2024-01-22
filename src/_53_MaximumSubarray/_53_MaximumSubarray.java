@@ -54,31 +54,32 @@ public class _53_MaximumSubarray {
     }
 
     // Identify where repeated work is happening
-    public int maxSubArray_optimized(int[] nums) {
+    public int maxSubArray_optimized(int[] nums) {  // Accepted on Leetcode, but need to get rid of the print statements
         int leftIndex = 0;
         int rightIndex = 0;
         int highestSum = Integer.MIN_VALUE;
         int subArraySum = 0;
 
-        int leftOfWindow = nums[leftIndex];
-        int rightOfWindow = nums[rightIndex];
+//        int leftOfWindow = nums[leftIndex];
+//        int rightOfWindow = nums[rightIndex];  // Cannot use rightOfWindow variable in while loop because it will give the wrong answer
 
-        subArraySum += leftOfWindow;
+//        subArraySum += leftOfWindow;
 
         while (rightIndex < nums.length) {  // If not at the end of the array, then keep looping
+            if (subArraySum <= 0) {  // Chop off whole left side and start fresh at the next element.
+//                leftIndex += (rightIndex - leftIndex) + 1;
+//                rightIndex++;
+                leftIndex = rightIndex;  // Reset the left pointer to the currently encountered element by the right index.
+                subArraySum = nums[leftIndex];  // Restart subarray sum as the current element.
+            } else if (subArraySum > 0) {
+                //rightIndex++;
+                subArraySum += nums[rightIndex];  // Update the subarray sum with the element on the right.
+            }
             System.out.println("slice of current array:");
             System.out.println(Arrays.toString(Arrays.stream(nums, leftIndex, rightIndex + 1).toArray()));
-            if (subArraySum <= 0) {  // Chop off whole left side and start fresh at the next element.
-                leftIndex += (rightIndex - leftIndex) + 1;
-                rightIndex++;
 
-                subArraySum = nums[leftIndex];
-                // should subtract from each value when you're moving left pointer pr set sum to 0
-            } else if (subArraySum > 0) {
-                rightIndex++;
-                subArraySum += rightOfWindow;
-            }
-            highestSum = Math.max(highestSum, subArraySum);
+            highestSum = Math.max(highestSum, subArraySum);  // Update the highest sum found so far.
+            rightIndex++;
         }
         return highestSum;
     }
