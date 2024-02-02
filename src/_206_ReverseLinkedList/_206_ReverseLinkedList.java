@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/reverse-linked-list/
+package _206_ReverseLinkedList;// https://leetcode.com/problems/reverse-linked-list/
 
 public class _206_ReverseLinkedList {
     // Definition for singly-linked list (given)
